@@ -26,22 +26,10 @@ describe("solana_faucet_dapp", () => {
   let _bump: number;
   const PROGRAM_ID = new PublicKey("Cq3wB5ZYpCqPiBWEgb1CNHgmjLS4nLgKnr2n6zebCGXr");
   let userTokenAccount: PublicKey;
-  // let faucetTokenAccount=new PublicKey("HirFCPfLm4QNXX5sWnEFFk21bguDbiG7BrZjiVo488oi");
-
   let faucetTokenAccount: PublicKey;
   let faucetUser: anchor.web3.PublicKey;
   let faucetAuthority: PublicKey;
   let faucetBump: number;
-//  const accounts: anchor.web3.AccountMeta = {
-//   user: user.publicKey,
-//   faucetUser: faucetUser,
-//   mint: MINT_ADDRESS,
-//   faucetAuthority: faucetAuthority,
-//   faucetTokenAccount: faucetTokenAccount,
-//   userTokenAccount: userTokenAccount,
-//   tokenProgram: TOKEN_PROGRAM_ID,
-//   system_program: SystemProgram.programId,
-// };
 
   before(async () => {
     // Creating faucet authority PDA
@@ -67,8 +55,8 @@ describe("solana_faucet_dapp", () => {
     //Create and get ATA(associated token account) for faucet token
     const faucetTokenAccountInfo = await getOrCreateAssociatedTokenAccount(
       provider.connection,
-      provider.wallet.payer,             // Your keypair who pays for the creation
-      MINT_ADDRESS,       // Your token's mint address
+      provider.wallet.payer,      //  keypair who pays for the creation
+      MINT_ADDRESS,       //  token's mint address
       faucetAuthority,   // The PDA who will own the account
       true               // allowOwnerOffCurve = true, because faucetAuthority is a PDA
     );
@@ -76,17 +64,6 @@ describe("solana_faucet_dapp", () => {
     console.log("created faucetTokenAccount", faucetTokenAccount);
 
 
-    /*
-    this only give you the created one account it does not create by itself
-     it("get the faucetTokenAccount",async()=>{
-       faucetTokenAccount = await getAssociatedTokenAddress(
-      MINT_ADDRESS,
-      faucetAuthority,
-      true  // allowOwnerOffCurve = true (because PDA is not a wallet)
-    );
-     })
-    */
-  
     // Only use it when you don't hit daily request limit else will give error .
        let before = await provider.connection.getBalance(user.publicKey);
       console.log("After airdrop balance:", before / 1e9, "SOL");
@@ -127,7 +104,7 @@ describe("solana_faucet_dapp", () => {
 
 it("Mints tokens to the faucet token account via program", async () => {
   const tx = await program.methods
-    .mintToFaucet(new anchor.BN(500_000_000_000)) // Mint 0.5 tokens (if 9 decimals)
+    .mintToFaucet(new anchor.BN(500_000_000_000)) // Mint 500 tokens 
     .accounts({
       mint: MINT_ADDRESS,
       faucetAuthority: faucetAuthority,
