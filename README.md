@@ -1,6 +1,3 @@
-For a **README** file of your Solana Token Faucet DApp implemented with Anchor framework, you want to provide a clear, detailed, and organized explanation to help users and developers understand the purpose, setup, usage, and architecture of your project. Here’s a detailed outline with suggested content you can include:
-
----
 
 # Solana Token Faucet DApp
 
